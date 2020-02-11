@@ -723,6 +723,7 @@
             var that = this,
                 file = options.files[0],
                 fs = file.size,
+                forceChunkedUpload = options.forceChunkedUpload,
                 ub = options.uploadedBytes,
                 mcs = options.maxChunkSize || fs,
                 slice = this._blobSlice,
@@ -730,7 +731,7 @@
                 promise = dfd.promise(),
                 jqXHR,
                 upload;
-            if (!(this._isXHRUpload(options) && slice && (ub || mcs < fs)) ||
+            if (!(this._isXHRUpload(options) && slice && (forceChunkedUpload || ub || mcs < fs)) ||
                     options.data) {
                 return false;
             }
